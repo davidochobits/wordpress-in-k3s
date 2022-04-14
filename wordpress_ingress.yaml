@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress1
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "wp-prod-issuer1"
+spec:
+  rules:
+  - host: laboratoriowp.bitsandlinux.com
+    http:
+     paths:
+     - path: "/"
+       pathType: Prefix
+       backend:
+         service:
+           name: wordpress1
+           port:
+             number: 80
+  tls:
+  - hosts:
+    - laboratoriowp.bitsandlinux.com
+    secretName: wordpress-tls1
